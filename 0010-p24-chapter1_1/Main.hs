@@ -20,8 +20,12 @@ main = do
         y1 = 5
         x2 = 4
         y2 = 7
+
+        -- Compute sides of a right-angled triangle
         side_1 = x2 - x1
         side_2 = y2 - y1
+
+        -- Compute the hypotenuse
         distance = sqrt(side_1 ** 2 + side_2 ** 2)
 
     putStrLn $ printf "The distance between the two points is %5.2f" (distance :: Double)
