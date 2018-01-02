@@ -7,7 +7,7 @@ Maintainer  : rcook@rcook.org
 Stability   : experimental
 Portability : portable
 
-This programs prints a degree-to-radian table using @forM_@ only and @do@-notation.
+This program prints a degree-to-radian table using @forM_@ only and @do@-notation.
 -}
 
 module Main (main) where
