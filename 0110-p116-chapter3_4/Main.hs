@@ -50,5 +50,6 @@ main = do
     forM_ readings $ \(time, height, velocity) ->
         putStrLn $ printf "%6.2f  %8.2f   %7.2f" time height (velocity / 3600)
 
+    putStrLn ""
     putStrLn $ printf "Maximum balloon height was %8.2f metres" maxHeight
     putStrLn $ printf "and it occurred at %6.2f hours" maxTime
