@@ -1,6 +1,6 @@
 # eng-prob by Richard Cook
 
-Haskell application with main executable only built using Stack
+Programs from [Engineering Problem Solving in ANSI C (1st edition)][eng-prob-c] by [Delores Etter][delores-etter] translated into Haskell
 
 ## Clone repository
 
@@ -36,4 +36,6 @@ stack test
 
 Released under [MIT License][licence]
 
+[delores-etter]: https://en.wikipedia.org/wiki/Delores_M._Etter
+[eng-prob-c]: https://www.amazon.com/Engineering-Problem-Solving-ANSI-Fundamental/dp/0130616079
 [licence]: LICENSE
