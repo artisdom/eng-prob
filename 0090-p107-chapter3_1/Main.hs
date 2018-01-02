@@ -26,5 +26,6 @@ main = do
                                 [0 :: Int, 10..360]
 
     -- Print degrees and radians
+    putStrLn "Degrees to Radians"
     forM_ degreesAndRadians $ \(degrees, radians) ->
         putStrLn $ printf "%6f %9.6f" (degrees :: Double) (radians :: Double)
