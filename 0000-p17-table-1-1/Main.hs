@@ -1,6 +1,6 @@
 {-|
 Module      : Main
-Description : 0000-p17-table-1-1-app
+Description : 0000-p17-table-1-1
 Copyright   : (C) Richard Cook, 2018
 License     : MIT
 Maintainer  : rcook@rcook.org

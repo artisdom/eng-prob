@@ -1,6 +1,6 @@
 {-|
 Module      : Main
-Description : 0001-chapter1_1
+Description : 0010-p24-chapter1_1
 Copyright   : (C) Richard Cook, 2018
 License     : MIT
 Maintainer  : rcook@rcook.org

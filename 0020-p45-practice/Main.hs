@@ -1,6 +1,6 @@
 {-|
 Module      : Main
-Description : 0002-p45-practice
+Description : 0020-p45-practice
 Copyright   : (C) Richard Cook, 2018
 License     : MIT
 Maintainer  : rcook@rcook.org
