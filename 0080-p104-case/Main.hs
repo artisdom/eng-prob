@@ -1,6 +1,6 @@
 {-|
 Module      : Main
-Description : 0080-p104-control-structures
+Description : 0080-p104-case
 Copyright   : (C) Richard Cook, 2018
 License     : MIT
 Maintainer  : rcook@rcook.org
