@@ -10,8 +10,6 @@ Portability : portable
 This program prints the system limitations.
 -}
 
-{-# LANGUAGE ScopedTypeVariables #-}
-
 module Main (main) where
 
 import Data.Int (Int8, Int16, Int32, Int64)
