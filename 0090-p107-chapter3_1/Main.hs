@@ -7,7 +7,7 @@ Maintainer  : rcook@rcook.org
 Stability   : experimental
 Portability : portable
 
-This program demonstrates iteration.
+This programs prints a degree-to-radian table using @map@ and @forM_@.
 -}
 
 module Main (main) where
