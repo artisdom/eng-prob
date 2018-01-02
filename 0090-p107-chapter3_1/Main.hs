@@ -1,6 +1,6 @@
 {-|
 Module      : Main
-Description : 0090-p107-iteration
+Description : 0090-p107-chapter3_1
 Copyright   : (C) Richard Cook, 2018
 License     : MIT
 Maintainer  : rcook@rcook.org
