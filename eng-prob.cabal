@@ -60,6 +60,14 @@ executable 0040-p70-theta_rad
   build-depends:                            base >= 4.7 && < 5
                                           , eng-prob
 
+executable 0050-p72-degrees-radians
+  default-language:                         Haskell2010
+  hs-source-dirs:                           0050-p72-degrees-radians
+  main-is:                                  Main.hs
+  ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
+  build-depends:                            base >= 4.7 && < 5
+                                          , eng-prob
+
 test-suite eng-prob-test
   type:                                     exitcode-stdio-1.0
   default-language:                         Haskell2010
