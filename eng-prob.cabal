@@ -29,7 +29,7 @@ library
   build-depends:                            base >= 4.7 && < 5
   exposed-modules:                          EngProb
 
-executable 0000-p17-table-1-1-app
+executable 0000-p17-table-1-1
   default-language:                         Haskell2010
   if os(darwin)
     cpp-options:                            -DOS_MACOS
@@ -37,12 +37,12 @@ executable 0000-p17-table-1-1-app
     cpp-options:                            -DOS_LINUX
   if os(windows)
     cpp-options:                            -DOS_WINDOWS
-  hs-source-dirs:                           0000-p17-table-1-1-app
+  hs-source-dirs:                           0000-p17-table-1-1
   main-is:                                  Main.hs
   ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
   build-depends:                            base >= 4.7 && < 5
 
-executable 0001-p24-chapter1_1
+executable 0010-p24-chapter1_1
   default-language:                         Haskell2010
   if os(darwin)
     cpp-options:                            -DOS_MACOS
@@ -50,12 +50,12 @@ executable 0001-p24-chapter1_1
     cpp-options:                            -DOS_LINUX
   if os(windows)
     cpp-options:                            -DOS_WINDOWS
-  hs-source-dirs:                           0001-p24-chapter1_1
+  hs-source-dirs:                           0010-p24-chapter1_1
   main-is:                                  Main.hs
   ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
   build-depends:                            base >= 4.7 && < 5
 
-executable 0002-p45-practice
+executable 0020-p45-practice
   default-language:                         Haskell2010
   if os(darwin)
     cpp-options:                            -DOS_MACOS
@@ -63,7 +63,7 @@ executable 0002-p45-practice
     cpp-options:                            -DOS_LINUX
   if os(windows)
     cpp-options:                            -DOS_WINDOWS
-  hs-source-dirs:                           0002-p45-practice
+  hs-source-dirs:                           0020-p45-practice
   main-is:                                  Main.hs
   ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
   build-depends:                            base >= 4.7 && < 5
