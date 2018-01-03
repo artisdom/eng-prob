@@ -10,48 +10,56 @@ Portability : portable
 This program generates a summary report from a data file that has the number of data points in the first record.
 -}
 
+{-# LANGUAGE BangPatterns #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module Main (main) where
 
-import Control.Monad (forM_)
-import Data.List (foldl')
-import EngProb (readValue)
-import Paths_eng_prob (getDataFileName)
-import Prelude hiding (max, min, sum)
-import Text.Printf (printf)
+import           Control.Monad (forM_)
+import           Data.Attoparsec.Text (Parser, double)
+import           Data.List (foldl')
+import qualified Data.Text.IO as Text (readFile)
+import           EngProb (listWithLeadingCount, parseAll, skipSpace1)
+import           Paths_eng_prob (getDataFileName)
+import           Text.Printf (printf)
 
-readTimeMotion :: String -> ((Double, Double), String)
-readTimeMotion s =
-    let (time, s1) = readValue s
-        (motion, s2) = readValue s1
-    in ((time, motion), s2)
+data TimeMotion = TimeMotion Double Double
+
+timeMotion :: Parser TimeMotion
+timeMotion = TimeMotion <$> double <* skipSpace1 <*> double
 
 main :: IO ()
 main = do
     -- Open file
-    file_name <- getDataFileName "sensor1.dat"
-    s <- readFile file_name
+    fileName <- getDataFileName "sensor1.dat"
+    s <- Text.readFile fileName
 
-    -- Read the number of data points
-    let (numDataPts :: Int, s1) = readValue s
+    -- Parse data from file
+    -- Use "!" (bang pattern) in order to error out early
+    let !dataPoints = case parseAll (listWithLeadingCount timeMotion skipSpace1) s of
+                        Left m -> error $ "Parse failed: " ++ m
+                        Right ps -> ps
+
+    -- Get initial motion in order to compute minimum and maximum
+    -- Use "!" (bang pattern) in order to error out early
+    let !initMotion = case dataPoints of
+                        [] -> error $ "No data in file " ++ fileName
+                        (TimeMotion _ motion) : _ -> motion
 
     -- Read data and compute summary information
-    let (_, items, sum, min, max) = foldl'
-                                        (\(s', items', sum', min', max') k ->
-                                            let (item@(_, motion), s0) = readTimeMotion s'
-                                                (min0, max0) = if k == 1 then (motion, motion) else (min', max')
-                                                min1 = if motion < min0 then motion else min0
-                                                max1 = if motion > max0 then motion else max0
-                                            in (s0, items' ++ [ item ], sum' + motion, min1, max1)
-                                        )
-                                        (s1, [], 0, 0, 0)
-                                        [1..numDataPts]
+    let (n, sumMotion, minMotion, maxMotion) =
+            foldl'
+                (\(i, t, mn, mx) (TimeMotion _ motion) ->
+                    let mn' = if motion < mn then motion else mn
+                        mx' = if motion > mx then motion else mx
+                    in (i + 1, t + motion, mn', mx'))
+                (0, 0, initMotion, initMotion)
+                dataPoints
 
-    forM_ items $ \(time, motion) ->
-        putStrLn $ printf "%.2f %.f" time motion
+    forM_ dataPoints $ \(TimeMotion time motion) ->
+        putStrLn $ printf "%.1f %.1f" time motion
 
-    putStrLn $ printf "Number of sensor readings: %d" numDataPts
-    putStrLn $ printf "Average reading:           %.2f" (sum / fromIntegral numDataPts)
-    putStrLn $ printf "Maximum reading:           %.2f" max
-    putStrLn $ printf "Minimum reading:           %.2f" min
+    putStrLn $ printf "Number of sensor readings: %d" (n :: Int)
+    putStrLn $ printf "Average reading:           %.2f" (sumMotion / fromIntegral n)
+    putStrLn $ printf "Maximum reading:           %.2f" maxMotion
+    putStrLn $ printf "Minimum reading:           %.2f" minMotion
