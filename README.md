@@ -2,6 +2,10 @@
 
 Programs from [Engineering Problem Solving in ANSI C (1st edition)][eng-prob-c] by [Delores Etter][delores-etter] translated into Haskell
 
+## Why do this?
+
+I'm doing it mainly for myself: it's a vehicle for me to remember all the engineering I've forgotten since I graduated from college. As I read through the book, translating the code samples should help me internalize the material. The second reason I'm doing this is to demonstrate that one can do practical things in Haskell.
+
 ## Clone repository
 
 ```
