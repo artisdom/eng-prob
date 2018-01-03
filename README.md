@@ -27,8 +27,10 @@ stack build --fast
 ## Run application
 
 ```
-stack exec eng-prob-app
+stack exec targetname
 ```
+
+Where `targetname` should be one of the targets listed in the [`.cabal`][cabal-file] file.
 
 ## Run tests
 
@@ -40,6 +42,7 @@ stack test
 
 Released under [MIT License][licence]
 
+[cabal-file]: eng-prob.cabal
 [delores-etter]: https://en.wikipedia.org/wiki/Delores_M._Etter
 [eng-prob-c]: https://www.amazon.com/Engineering-Problem-Solving-ANSI-Fundamental/dp/0130616079
 [licence]: LICENSE
