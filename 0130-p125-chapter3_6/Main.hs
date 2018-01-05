@@ -16,8 +16,16 @@ This program generates a summary report from a data file that has a trailer reco
 
 module Main (main) where
 
-import           Control.Monad (forM_, void)
-import           Data.Attoparsec.Text-- (Parser, double, parseOnly, skipSpace, string, manyTill')
+import           Control.Monad (forM_)
+import           Data.Attoparsec.Text
+                    ( Parser
+                    , choice
+                    , double
+                    , parseOnly
+                    , skipSpace
+                    , string
+                    , manyTill'
+                    )
 import           Data.List (foldl')
 import           Data.Text (Text)
 import qualified Data.Text.IO as Text (readFile)
@@ -35,15 +43,9 @@ timeMotion = TimeMotion <$> double <* skipSpace1 <*> double
 untilTrailerLine :: Parser [TimeMotion]
 untilTrailerLine = choice [none, oneOrMore]
     where
-        trailer = do
-            void $ string "-99"
-            skipSpace1
-            void $ string "-99"
-            return ()
+        trailer = string "-99" *> skipSpace1 *> string "-99" *> pure ()
 
-        none = do
-            trailer
-            return []
+        none = trailer *> pure []
 
         oneOrMore = do
             value <- timeMotion
