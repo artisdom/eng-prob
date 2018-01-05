@@ -14,6 +14,7 @@ module Main (main) where
 
 import           Control.Monad (forM_)
 import           EngProb (prompt)
+import           Graphics.Rendering.Chart.Backend.Cairo (toFile)
 import           Graphics.Rendering.Chart.Easy
                     ( (.=)
                     , def
@@ -22,7 +23,6 @@ import           Graphics.Rendering.Chart.Easy
                     , plotLeft
                     , plotRight
                     )
-import           Graphics.Rendering.Chart.Backend.Cairo (toFile)
 import           System.IO
                     ( IOMode(..)
                     , hPutStrLn
