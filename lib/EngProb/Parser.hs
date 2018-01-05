@@ -7,10 +7,8 @@ Maintainer  : rcook@rcook.org
 Stability   : experimental
 Portability : portable
 
-This modules defines assorted parser functions.
+This module defines assorted parser functions.
 -}
-
---{-# LANGUAGE OverloadedStrings #-}
 
 module EngProb.Parser
     ( countSepBy

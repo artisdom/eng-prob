@@ -7,7 +7,7 @@ Maintainer  : rcook@rcook.org
 Stability   : experimental
 Portability : portable
 
-This modules defines assorted utility functions.
+This module defines assorted utility functions.
 -}
 
 module EngProb.Util
