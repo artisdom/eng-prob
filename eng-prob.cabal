@@ -157,7 +157,8 @@ executable 0150-p129-chapter3_8
   hs-source-dirs:                           0150-p129-chapter3_8
   main-is:                                  Main.hs
   ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
-  build-depends:                            attoparsec
+  build-depends:                            Chart
+                                          , Chart-cairo
                                           , base >= 4.7 && < 5
                                           , eng-prob
                                           , text
