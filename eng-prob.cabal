@@ -161,7 +161,6 @@ executable 0150-p129-chapter3_8
                                           , Chart-cairo
                                           , base >= 4.7 && < 5
                                           , eng-prob
-                                          , text
 
 test-suite eng-prob-test
   type:                                     exitcode-stdio-1.0
