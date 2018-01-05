@@ -44,9 +44,7 @@ untilTrailerLine :: Parser [TimeMotion]
 untilTrailerLine = choice [none, oneOrMore]
     where
         trailer = string "-99" *> skipSpace1 *> string "-99" *> pure ()
-
         none = trailer *> pure []
-
         oneOrMore = do
             value <- timeMotion
             values <- manyTill' (skipSpace1 *> timeMotion) (skipSpace *> trailer)
