@@ -12,6 +12,14 @@ I'm doing it mainly for myself: it's a vehicle for me to remember all the engine
 git clone https://github.com/rcook/eng-prob.git
 ```
 
+## Set up prerequisites
+
+### macOS
+
+```
+brew install cairo pkg-config
+```
+
 ## Install compiler
 
 ```
