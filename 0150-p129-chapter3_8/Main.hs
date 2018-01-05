@@ -78,4 +78,4 @@ main = do
     putStrLn $ printf "\nMaximum balloon height was %8.2f metres" maxHeight
     putStrLn $ printf "and it occurred at %6.2f hours" maxTime
 
-    createPlot "../balloon.png" dataPoints
+    createPlot "balloon.png" dataPoints
