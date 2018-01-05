@@ -18,15 +18,21 @@ module Main (main) where
 import           Control.Monad (forM_)
 import           Data.Attoparsec.Text (Parser, double)
 import           Data.List (foldl')
+import           Data.Text (Text)
 import qualified Data.Text.IO as Text (readFile)
 import           EngProb (listWithLeadingCount, parseAll, skipSpace1)
 import           Paths_eng_prob (getDataFileName)
 import           Text.Printf (printf)
 
+-- Data type representing a (time, motion) pair from the data file
 data TimeMotion = TimeMotion Double Double
 
+-- A parser for (time, motion) pairs
 timeMotion :: Parser TimeMotion
 timeMotion = TimeMotion <$> double <* skipSpace1 <*> double
+
+parseDataFile :: Text -> Either String [TimeMotion]
+parseDataFile = parseAll (listWithLeadingCount timeMotion skipSpace1)
 
 main :: IO ()
 main = do
@@ -36,7 +42,7 @@ main = do
 
     -- Parse data from file
     -- Use "!" (bang pattern) in order to error out early
-    let !dataPoints = case parseAll (listWithLeadingCount timeMotion skipSpace1) s of
+    let !dataPoints = case parseDataFile s of
                         Left m -> error $ "Parse failed: " ++ m
                         Right ps -> ps
 
