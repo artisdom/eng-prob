@@ -19,17 +19,14 @@ module Main (main) where
 import           Control.Monad (forM_)
 import           Data.Attoparsec.Text
                     ( Parser
-                    , choice
                     , double
-                    , endOfInput
-                    , skipSpace
-                    , manyTill'
                     )
 import           Data.List (foldl')
 import           Data.Text (Text)
 import qualified Data.Text.IO as Text (readFile)
 import           EngProb
                     ( parseAll
+                    , sepBySpaceUntilEndOfInput
                     , skipSpace1
                     )
 import           Paths_eng_prob (getDataFileName)
@@ -42,17 +39,8 @@ data TimeMotion = TimeMotion Double Double deriving Show
 timeMotion :: Parser TimeMotion
 timeMotion = TimeMotion <$> double <* skipSpace1 <*> double
 
-untilTrailerLine :: Parser [TimeMotion]
-untilTrailerLine = choice [none, oneOrMore]
-    where
-        none = skipSpace *> endOfInput *> pure []
-        oneOrMore = do
-            value <- timeMotion
-            values <- manyTill' (skipSpace1 *> timeMotion) none
-            return $ value : values
-
 parseDataText :: Text -> Either String [TimeMotion]
-parseDataText = parseAll untilTrailerLine
+parseDataText = parseAll (sepBySpaceUntilEndOfInput timeMotion)
 
 main :: IO ()
 main = do

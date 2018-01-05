@@ -14,6 +14,7 @@ module EngProb.Parser
     ( countSepBy
     , listWithLeadingCount
     , parseAll
+    , sepBySpaceUntilEndOfInput
     , skipSpace1
     , wholeInput
     ) where
@@ -21,9 +22,11 @@ module EngProb.Parser
 import           Control.Monad (void, when)
 import           Data.Attoparsec.Text
                     ( Parser
+                    , choice
                     , count
                     , decimal
                     , endOfInput
+                    , manyTill'
                     , parseOnly
                     , skip
                     , skipMany1
@@ -71,3 +74,15 @@ parseAll ::
     -> Text             -- ^ Text
     -> Either String a  -- ^ Parse result
 parseAll = parseOnly . wholeInput
+
+-- |Parse items separated by whitespace until end of input is reached
+sepBySpaceUntilEndOfInput ::
+    Parser a        -- ^ Base parser
+    -> Parser [a]   -- ^ Parser
+sepBySpaceUntilEndOfInput f = choice [none, oneOrMore]
+    where
+        none = skipSpace *> endOfInput *> pure []
+        oneOrMore = do
+            value <- f
+            values <- manyTill' (skipSpace1 *> f) none
+            return $ value : values
