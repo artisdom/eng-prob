@@ -36,7 +36,7 @@ createPlot :: FilePath -> [DataPoint] -> IO ()
 createPlot fileName dataPoints = toFile def fileName $ do
     layoutlr_title .= "Weather balloon altitude and velocity"
     plotLeft $ line "Balloon Altitude (metres)"
-                [ [ (d, h) | (d, h, _) <- dataPoints] ]
+                [ [ (d, h) | (d, h, _) <- dataPoints ] ]
     plotRight $ line "Balloon Velocity (metres/s)"
                 [ [ (d, v) | (d, _, v) <- dataPoints ] ]
 
