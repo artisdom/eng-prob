@@ -31,8 +31,8 @@ data TimeMotion = TimeMotion Double Double
 timeMotion :: Parser TimeMotion
 timeMotion = TimeMotion <$> double <* skipSpace1 <*> double
 
-parseDataFile :: Text -> Either String [TimeMotion]
-parseDataFile = parseAll (listWithLeadingCount timeMotion skipSpace1)
+parseDataText :: Text -> Either String [TimeMotion]
+parseDataText = parseAll (listWithLeadingCount timeMotion skipSpace1)
 
 main :: IO ()
 main = do
@@ -42,7 +42,7 @@ main = do
 
     -- Parse data from file
     -- Use "!" (bang pattern) in order to error out early
-    let !dataPoints = case parseDataFile s of
+    let !dataPoints = case parseDataText s of
                         Left m -> error $ "Parse failed: " ++ m
                         Right ps -> ps
 
