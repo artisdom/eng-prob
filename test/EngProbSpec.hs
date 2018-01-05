@@ -13,6 +13,7 @@ Portability : portable
 module EngProbSpec (spec) where
 
 import           Data.Attoparsec.Text
+import           Data.Either
 import           EngProb
 import           Test.Hspec
 
@@ -83,3 +84,19 @@ spec = do
                 Done i r = c ""
             i `shouldBe` ""
             r `shouldBe` [1.0, 2.0, 3.0, 4.0, 5.0]
+
+    describe "wholeInput" $ do
+        it "should swallow leading and trailing whitespace" $ do
+            let r = parseOnly double " 1.0 "
+            isLeft r `shouldBe` True
+
+            let r = parseOnly (wholeInput double) " 1.0 "
+            r `shouldBe` Right 1.0
+
+    describe "parseAll" $ do
+        it "should swallow leading and trailing whitespace" $ do
+            let r = parseOnly double " 1.0 "
+            isLeft r `shouldBe` True
+
+            let r = parseAll double " 1.0 "
+            r `shouldBe` Right 1.0

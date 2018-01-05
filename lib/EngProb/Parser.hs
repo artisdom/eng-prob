@@ -61,10 +61,15 @@ listWithLeadingCount f sep = do
     when (n > 0) (void sep)
     countSepBy n f sep
 
--- TODO: Document this
-wholeInput :: Parser a -> Parser a
+-- |Build parser which will ignore leading and trailing whitespace
+wholeInput ::
+    Parser a    -- ^ Base parser
+    -> Parser a -- ^ Parser
 wholeInput f = skipSpace *> f <* skipSpace <* endOfInput
 
--- TODO: Document this
-parseAll :: Parser a -> Text -> Either String a
+-- |Parse input ignoring leading and trailing whitespace
+parseAll ::
+    Parser a            -- ^ Base parser
+    -> Text             -- ^ Text
+    -> Either String a  -- ^ Parse result
 parseAll = parseOnly . wholeInput
