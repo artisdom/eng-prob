@@ -10,8 +10,6 @@ Portability : portable
 This program computes a linear model for a set of altitude and ozone mixing ratio values. A plot is also output to a PNG file.
 -}
 
-{-# LANGUAGE ScopedTypeVariables #-}
-
 module Main (main) where
 
 import           Control.Monad (forM_)
@@ -42,8 +40,8 @@ createPlot fileName a b dataPoints = toFile def fileName $ do
 main :: IO ()
 main = do
     -- Get interval endpoints from the user
-    a :: Double <- prompt "Enter endpoint a: "
-    b :: Double <- prompt "Enter endpoint b (b > a): "
+    a <- prompt "Enter endpoint a: "
+    b <- prompt "Enter endpoint b (b > a): "
 
     let x_incr = (b - a) / 20
 
