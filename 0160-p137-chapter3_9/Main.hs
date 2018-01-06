@@ -10,63 +10,47 @@ Portability : portable
 This program computes a linear model for a set of altitude and ozone mixing ratio values.
 -}
 
-{-# LANGUAGE BangPatterns #-}
-
 module Main (main) where
 
-import           Data.Attoparsec.Text
+import           EngProb
                     ( Parser
                     , double
-                    )
-import           Data.Text (Text)
-import           Data.Text.IO as Text (readFile)
-import           EngProb
-                    ( parseAll
-                    , sepBySpaceUntilEndOfInput
-                    , skipSpace1
+                    , expandRange
+                    , processM
+                    , tokenize
                     )
 import           Paths_eng_prob (getDataFileName)
 import           Text.Printf (printf)
 
-data Record = Record Double Double
-
-record :: Parser Record
-record = Record <$> double <* skipSpace1 <*> double
-
-parseDataText :: Text -> Either String [Record]
-parseDataText = parseAll (sepBySpaceUntilEndOfInput record)
+record :: Parser (Double, Double)
+record = (,) <$> double <*> double
 
 main :: IO ()
 main = do
     -- Open and read file
     fileName <- getDataFileName "zone1.dat"
-    s <- Text.readFile fileName
-
-    -- Parse pairs of values until end of input is reached
-    let !dataPoints = case parseDataText s of
-                        Left m -> error $ "Parse failed: " ++ m
-                        Right ps -> ps
-
-    -- Get initial x-values in order to compute minimum and maximum
-    -- Use "!" (bang pattern) in order to error out early
-    let !initX = case dataPoints of
-                    [] -> error $ "No data in file " ++ fileName
-                    (Record x _) : _ -> x
+    stream <- readFile fileName
 
     -- Accumulate information
-    let (sumx, sumy, sumx2, sumxy, count, minx, maxx) = foldr
-                (\(Record x y) (sx, sy, sx2, sxy, count', mnx, mxx) ->
-                    let mnx' = if x < mnx then x else mnx
-                        mxx' = if x > mxx then x else mxx
-                    in (sx + x, sy + y, sx2 + x * x, sxy + x * y, count' + 1, mnx', mxx'))
-                (0, 0, 0, 0, 0, initX, initX)
-                dataPoints
-        denominator = sumx * sumx - count * sumx2
-        m = (sumx * sumy - count * sumxy) / denominator
+    result <-
+        processM record
+            (tokenize stream)
+            (0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) $ \(i, minX, maxX, sx, sy, sx2, sxy) (x, y) -> do
+                putStrLn $ printf "%.1f %.1f" x y
+                let (minX', maxX') = expandRange i minX maxX x
+                return (i + 1, minX', maxX', sx + x, sy + y, sx2 + x * x, sxy + x * y)
+
+    let (n, minHeight, maxHeight, sumx, sumy, sumx2, sumxy) =
+            case result of
+                Left s -> error $ "Processing failed: " ++ s
+                Right (x, _) -> x
+        floatN = fromIntegral n
+        denominator = sumx * sumx - floatN * sumx2
+        m = (sumx * sumy - floatN * sumxy) / denominator
         b = (sumx * sumxy - sumx2 * sumy) / denominator
 
     -- Print summary of information
     putStrLn "Range of altitudes in km:"
-    putStrLn $ printf "%.2f to %.2f\n" minx maxx
+    putStrLn $ printf "%.2f to %.2f\n" minHeight maxHeight
     putStrLn "Linear model:"
     putStrLn $ printf "ozone-mix-ratio = %.2f altitude + %.2f" m b

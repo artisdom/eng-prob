@@ -22,12 +22,24 @@ library
   default-language:                         Haskell2010
   hs-source-dirs:                           lib
   ghc-options:                              -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
-  build-depends:                            attoparsec
-                                          , base >= 4.7 && < 5
-                                          , text
+  build-depends:                            base >= 4.7 && < 5
   exposed-modules:                          EngProb
+                                          , EngProb.Loop
                                           , EngProb.Parser
+                                          , EngProb.Parser.Funcs
+                                          , EngProb.Parser.Types
                                           , EngProb.Util
+
+test-suite eng-prob-test
+  type:                                     exitcode-stdio-1.0
+  default-language:                         Haskell2010
+  hs-source-dirs:                           test
+  main-is:                                  Spec.hs
+  ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
+  other-modules:                            ParserSpec
+  build-depends:                            base >= 4.7 && < 5
+                                          , eng-prob
+                                          , hspec
 
 executable 0000-p17-table-1-1
   default-language:                         Haskell2010
@@ -127,30 +139,24 @@ executable 0120-p123-chapter3_5
   hs-source-dirs:                           0120-p123-chapter3_5
   main-is:                                  Main.hs
   ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
-  build-depends:                            attoparsec
-                                          , base >= 4.7 && < 5
+  build-depends:                            base >= 4.7 && < 5
                                           , eng-prob
-                                          , text
 
 executable 0130-p125-chapter3_6
   default-language:                         Haskell2010
   hs-source-dirs:                           0130-p125-chapter3_6
   main-is:                                  Main.hs
   ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
-  build-depends:                            attoparsec
-                                          , base >= 4.7 && < 5
+  build-depends:                            base >= 4.7 && < 5
                                           , eng-prob
-                                          , text
 
 executable 0140-p127-chapter3_7
   default-language:                         Haskell2010
   hs-source-dirs:                           0140-p127-chapter3_7
   main-is:                                  Main.hs
   ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
-  build-depends:                            attoparsec
-                                          , base >= 4.7 && < 5
+  build-depends:                            base >= 4.7 && < 5
                                           , eng-prob
-                                          , text
 
 executable 0150-p129-chapter3_8
   default-language:                         Haskell2010
@@ -167,10 +173,8 @@ executable 0160-p137-chapter3_9
   hs-source-dirs:                           0160-p137-chapter3_9
   main-is:                                  Main.hs
   ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
-  build-depends:                            attoparsec
-                                          , base >= 4.7 && < 5
+  build-depends:                            base >= 4.7 && < 5
                                           , eng-prob
-                                          , text
 
 executable 0170-p155-chapter4_2
   default-language:                         Haskell2010
@@ -181,7 +185,6 @@ executable 0170-p155-chapter4_2
                                           , Chart-cairo
                                           , base >= 4.7 && < 5
                                           , eng-prob
-                                          , text
 
 executable 0180-p166-chapter4_3
   default-language:                         Haskell2010
@@ -218,15 +221,3 @@ executable 0210-p175-chapter4_5
   build-depends:                            base >= 4.7 && < 5
                                           , eng-prob
                                           , random
-
-test-suite eng-prob-test
-  type:                                     exitcode-stdio-1.0
-  default-language:                         Haskell2010
-  hs-source-dirs:                           test
-  main-is:                                  Spec.hs
-  ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
-  other-modules:                            EngProbSpec
-  build-depends:                            attoparsec
-                                          , base >= 4.7 && < 5
-                                          , eng-prob
-                                          , hspec
