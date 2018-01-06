@@ -14,7 +14,7 @@ module Main (main) where
 
 import           Control.Monad (forM_)
 import           EngProb (prompt)
-import           System.Random
+import           System.Random (mkStdGen, randomR)
 import           Text.Printf (printf)
 
 randMax :: Int
