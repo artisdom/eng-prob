@@ -14,11 +14,8 @@ module Main (main) where
 
 import           Control.Monad (forM_)
 import           EngProb (prompt)
-import           System.Random (StdGen, mkStdGen, randomR)
+import           System.Random (StdGen, mkStdGen, randomRs)
 import           Text.Printf (printf)
-
-repeatN :: Int -> (a -> a) -> a -> a
-repeatN n f x = foldr (\_ x' -> f x') x [1..n]
 
 main :: IO ()
 main = do
@@ -28,18 +25,14 @@ main = do
     b <- prompt "Enter integer limit b (a < b):\n"
 
     let
-        randInt :: StdGen -> (Int, StdGen)
-        randInt = randomR (a, b)
+        randInts :: StdGen -> [Int]
+        randInts = randomRs (a, b)
 
         -- Create a random generator with given seed
         g = mkStdGen seed
 
         -- Generate ten random numbers
-        (values, _) = repeatN 10
-                        (\(values', g') ->
-                            let (value'', g'') = randInt g'
-                            in (value'' : values', g''))
-                        ([], g)
+        values = take 10 (randInts g)
 
     -- Print random numbers
     putStrLn "Random Numbers:"

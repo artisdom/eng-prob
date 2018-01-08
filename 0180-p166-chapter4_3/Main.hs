@@ -14,14 +14,11 @@ module Main (main) where
 
 import           Control.Monad (forM_)
 import           EngProb (prompt)
-import           System.Random (mkStdGen, randomR)
+import           System.Random (mkStdGen, randomRs)
 import           Text.Printf (printf)
 
 randMax :: Int
 randMax = 32767
-
-repeatN :: Int -> (a -> a) -> a -> a
-repeatN n f x = foldr (\_ x' -> f x') x [1..n]
 
 main :: IO ()
 main = do
@@ -33,11 +30,7 @@ main = do
         g = mkStdGen seed
 
         -- Generate ten random numbers
-        (values, _) = repeatN 10
-                        (\(values', g') ->
-                            let (value'', g'') = randomR (0, randMax) g'
-                            in (value'' : values', g''))
-                        ([], g)
+        values = take 10 (randomRs (0, randMax) g)
 
     -- Print random numbers
     putStrLn "Random Numbers:"

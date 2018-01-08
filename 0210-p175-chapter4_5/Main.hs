@@ -13,7 +13,7 @@ This program estimates the reliability of a series and a parallel configuration 
 module Main (main) where
 
 import           EngProb (prompt)
-import           System.Random (StdGen, mkStdGen, randomR)
+import           System.Random (StdGen, mkStdGen, randomRs)
 import           Text.Printf (printf)
 
 repeatN :: Int -> (a -> a) -> a -> a
@@ -36,8 +36,8 @@ main = do
                         + (-3) * componentReliability ** 2
                         + componentReliability ** 3
 
-        randFloat :: StdGen -> (Double, StdGen)
-        randFloat = randomR (0.0, 1.0)
+        randFloats :: StdGen -> [Double]
+        randFloats = randomRs (0.0, 1.0)
 
         -- Create a random generator with given seed
         g = mkStdGen seed
@@ -45,10 +45,8 @@ main = do
         -- Determine simulation reliability estimates
         (seriesSuccess, parallelSuccess, _) =
             repeatN n
-                (\(ss, ps, g0) ->
-                    let (num1, g1) = randFloat g0
-                        (num2, g2) = randFloat g1
-                        (num3, g3) = randFloat g2
+                (\(ss, ps, nums) ->
+                    let num1 : num2 : num3 : nums' = nums
                         ss' = if num1 <= componentReliability &&
                             num2 <= componentReliability &&
                             num3 <= componentReliability
@@ -57,8 +55,8 @@ main = do
                             num2 <= componentReliability ||
                             num3 <= componentReliability
                             then ps + 1 else ps
-                    in (ss', ps', g3))
-                (0, 0, g)
+                    in (ss', ps', nums'))
+                (0, 0, randFloats g)
 
     -- Print results
     putStrLn "Analytical Reliability"
