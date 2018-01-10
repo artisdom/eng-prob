@@ -17,15 +17,20 @@ module EngProb.Parser.Types
     , TokenStream
     ) where
 
+-- |A token to be parsed
 type Token = String
+
+-- |A stream of tokens to be parsed
 type TokenStream = [Token]
 
+-- |Result of parse operation
 data Result a
     = Valid a TokenStream
     | Invalid String
     | EndOfInput
     deriving (Eq, Show)
 
+-- |A parser
 newtype Parser a = Parser { parse :: TokenStream -> Result a }
 
 instance Functor Parser where

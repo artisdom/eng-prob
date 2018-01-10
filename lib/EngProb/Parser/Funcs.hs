@@ -63,7 +63,7 @@ processTill ::
     (TokenStream -> Maybe TokenStream)  -- ^ Predicate
     -> Parser a                         -- ^ Parser
     -> TokenStream                      -- ^ Tokens
-    -> b                                -- ^ Start accumulator
+    -> b                                -- ^ Initial accumulator value
     -> (b -> a -> b)                    -- ^ Accumulator function
     -> Result b                         -- ^ Result
 processTill endFunc p ts acc f = case endFunc ts of
@@ -78,7 +78,7 @@ processTill endFunc p ts acc f = case endFunc ts of
 process ::
     Parser a            -- ^ Parser
     -> TokenStream      -- ^ Tokens
-    -> b                -- ^ Start accumulator
+    -> b                -- ^ Initial accumulator value
     -> (b -> a -> b)    -- ^ Accumulator function
     -> Result b         -- ^ Result
 process = processTill (\ts -> case ts of [] -> Just []; _ -> Nothing)
@@ -87,7 +87,7 @@ process = processTill (\ts -> case ts of [] -> Just []; _ -> Nothing)
 processWithLeadingCount ::
     Parser a            -- ^ Parser
     -> TokenStream      -- ^ Tokens
-    -> b                -- ^ Start accumulator
+    -> b                -- ^ Initial accumulator value
     -> (b -> a -> b)    -- ^ Accumulator function
     -> Result b         -- ^ Result
 processWithLeadingCount p ts acc f =
@@ -115,7 +115,7 @@ processWithLeadingCountHelper i n p ts acc f
 processWithLeadingCountM :: Monad m =>
     Parser a                                -- ^ Parser
     -> TokenStream                          -- ^ Tokens
-    -> b                                    -- ^ Start accumulator
+    -> b                                    -- ^ Initial accumulator value
     -> (b -> a -> m b)                      -- ^ Action
     -> m (Either String (b, TokenStream))   -- ^ Result
 processWithLeadingCountM p ts acc f =
@@ -135,7 +135,7 @@ processTillM :: Monad m =>
     (TokenStream -> Maybe TokenStream)      -- ^ Predicate
     -> Parser a                             -- ^ Parser
     -> TokenStream                          -- ^ Tokens
-    -> b                                    -- ^ Start accumulator
+    -> b                                    -- ^ Initial accumulator value
     -> (b -> a -> m b)                      -- ^ Action
     -> m (Either String (b, TokenStream))   -- ^ Result
 processTillM endFunc p ts acc f = do
@@ -153,7 +153,7 @@ processTillM endFunc p ts acc f = do
 processM :: Monad m =>
     Parser a                                -- ^ Parser
     -> TokenStream                          -- ^ Tokens
-    -> b                                    -- ^ Start accumulator
+    -> b                                    -- ^ Initial accumulator value
     -> (b -> a -> m b)                      -- ^ Action
     -> m (Either String (b, TokenStream))   -- ^ Result
 processM p ts acc f = do

@@ -17,14 +17,14 @@ module EngProb.Util
 
 -- |Display a prompt and strictly read a value from terminal
 prompt :: Read a =>
-    String -- ^ Prompt text
+    String  -- ^ Prompt text
     -> IO a -- ^ Action
 prompt s = do
     putStr s
     line <- getLine
     return $! read line -- Use '$!' to force evaluation read expression
 
--- Expand minimum/maximum range
+-- |Expand minimum/maximum range
 expandRange ::
     Int                 -- ^ Iteration index
     -> Double           -- ^ Current minimum
