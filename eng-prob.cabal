@@ -230,4 +230,3 @@ executable 0220-p186-chapter4_6
   ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
   build-depends:                            base >= 4.7 && < 5
                                           , eng-prob
-                                          , random
