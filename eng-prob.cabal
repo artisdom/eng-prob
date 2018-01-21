@@ -28,6 +28,7 @@ library
                                           , EngProb.Parser
                                           , EngProb.Parser.Funcs
                                           , EngProb.Parser.Types
+                                          , EngProb.Prelude
                                           , EngProb.Util
 
 test-suite eng-prob-test
@@ -216,6 +217,15 @@ executable 0200-p170-rand_float
 executable 0210-p175-chapter4_5
   default-language:                         Haskell2010
   hs-source-dirs:                           0210-p175-chapter4_5
+  main-is:                                  Main.hs
+  ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
+  build-depends:                            base >= 4.7 && < 5
+                                          , eng-prob
+                                          , random
+
+executable 0220-p186-chapter4_6
+  default-language:                         Haskell2010
+  hs-source-dirs:                           0220-p186-chapter4_6
   main-is:                                  Main.hs
   ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
   build-depends:                            base >= 4.7 && < 5
