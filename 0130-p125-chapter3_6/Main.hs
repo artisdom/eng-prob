@@ -12,19 +12,10 @@ This program generates a summary report from a data file that has a trailer reco
 
 module Main (main) where
 
-import           EngProb
-                    ( Parser
-                    , double
-                    , expandRange
-                    , tokenize
-                    , processTillM
-                    )
+import           EngProb (expandRange)
+import           EngProb.Prelude
 import           Paths_eng_prob (getDataFileName)
 import           Text.Printf (printf)
-
--- A parser for (time, motion) pairs
-timeMotion :: Parser (Double, Double)
-timeMotion = (,) <$> double <*> double
 
 main :: IO ()
 main = do
@@ -33,18 +24,18 @@ main = do
     stream <- readFile fileName
 
     -- Read data and compute summary information
-    result <-
-        processTillM (\ts -> case ts of "-99" : "-99" : ts' -> Just ts'; _ -> Nothing) timeMotion
-            (tokenize stream)
-            (0, 0.0, 0.0, 0.0) $ \(i, sm, mn, mx) (t, m) -> do
-                putStrLn $ printf "%.1f %.1f" t m
-                let (mn', mx') = expandRange i mn mx m
-                return (i + 1, sm + m, mn', mx')
-
-    let (n, sumMotion, minMotion, maxMotion) =
-            case result of
-                Left s -> error $ "Processing failed: " ++ s
-                Right (x, _) -> x
+    let (_, motions) =
+                unzip (
+                takeWhile
+                    (\tm -> tm /= (-99 :: Double, -99 :: Double)) $
+                    map (\l -> let t : m : _ = words l in (read t, read m)) (lines stream))
+        (n, sumMotion, minMotion, maxMotion) =
+            foldl'
+                (\(i, sm, mn, mx) m ->
+                    let (mn', mx') = expandRange i mn mx m
+                    in (i + 1, sm + m, mn', mx'))
+                (0, 0.0, 0.0, 0.0)
+                motions
 
     -- Show summary information
     putStrLn $ printf "Number of sensor readings: %d" n
