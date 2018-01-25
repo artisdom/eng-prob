@@ -12,18 +12,10 @@ This program computes a linear model for a set of altitude and ozone mixing rati
 
 module Main (main) where
 
-import           EngProb
-                    ( Parser
-                    , double
-                    , expandRange
-                    , processM
-                    , tokenize
-                    )
+import           EngProb (expandRange)
+import           EngProb.Prelude
 import           Paths_eng_prob (getDataFileName)
 import           Text.Printf (printf)
-
-record :: Parser (Double, Double)
-record = (,) <$> double <*> double
 
 main :: IO ()
 main = do
@@ -31,19 +23,24 @@ main = do
     fileName <- getDataFileName "zone1.dat"
     stream <- readFile fileName
 
-    -- Accumulate information
-    result <-
-        processM record
-            (tokenize stream)
-            (0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) $ \(i, minX, maxX, sx, sy, sx2, sxy) (x, y) -> do
-                putStrLn $ printf "%.1f %.1f" x y
-                let (minX', maxX') = expandRange i minX maxX x
-                return (i + 1, minX', maxX', sx + x, sy + y, sx2 + x * x, sxy + x * y)
+    let xys =
+            unfoldr
+                (\ls -> case ls of
+                            l : ls' -> case words l of
+                                            sx : sy : _ -> Just ((read sx, read sy), ls')
+                                            _ -> Nothing
+                            _ -> Nothing)
+                (lines stream)
 
-    let (n, minHeight, maxHeight, sumx, sumy, sumx2, sumxy) =
-            case result of
-                Left s -> error $ "Processing failed: " ++ s
-                Right (x, _) -> x
+        -- Accumulate information
+        (n, minHeight, maxHeight, sumx, sumy, sumx2, sumxy) =
+            foldl'
+                (\(i, minX, maxX, sx, sy, sx2, sxy) (x, y) ->
+                    let (minX', maxX') = expandRange i minX maxX x
+                    in (i + 1, minX', maxX', sx + x, sy + y, sx2 + x * x, sxy + x * y))
+                (0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+                xys
+
         floatN = fromIntegral n
         denominator = sumx * sumx - floatN * sumx2
         m = (sumx * sumy - floatN * sumxy) / denominator
