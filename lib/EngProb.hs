@@ -12,12 +12,10 @@ This module supplies support functions and types for Engineering Problem Solving
 
 module EngProb
     ( module EngProb.Loop
-    , module EngProb.Parser
     , module EngProb.Prelude
     , module EngProb.Util
     ) where
 
 import EngProb.Loop
-import EngProb.Parser
 import EngProb.Prelude
 import EngProb.Util

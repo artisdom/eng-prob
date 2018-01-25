@@ -25,9 +25,6 @@ library
   build-depends:                            base >= 4.7 && < 5
   exposed-modules:                          EngProb
                                           , EngProb.Loop
-                                          , EngProb.Parser
-                                          , EngProb.Parser.Funcs
-                                          , EngProb.Parser.Types
                                           , EngProb.Prelude
                                           , EngProb.Util
 

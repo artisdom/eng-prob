@@ -15,19 +15,20 @@ module Main (main) where
 import           Control.Monad.Extra (unfoldM)
 import           Data.Vector.Unboxed (Vector)
 import qualified Data.Vector.Unboxed as Vector
-import           EngProb hiding (Parser, Result(..), double)
+import           EngProb
 import           Paths_eng_prob
 import           Test.Hspec
 import           Text.Read (readMaybe)
 
--- TODO: Use EngProb.Result instead
+type Token = String
+type TokenStream = [Token]
+
 data Result a
-    = Valid a-- TokenStream
+    = Valid a
     | Invalid String
     | EndOfInput
     deriving (Eq, Show)
 
--- TODO: Use EngProb.Parser instead
 type Parser a = TokenStream -> Result (a, TokenStream)
 
 instance Functor Result where
@@ -96,7 +97,7 @@ main = do
     stream <- readFile fileName
 
     let pairs =
-            case unfoldM (tillEndOfInput coords) (tokenize stream) of
+            case unfoldM (tillEndOfInput coords) (words stream) of
                 Valid x -> x
                 Invalid s -> error s
                 EndOfInput -> error "Logic error"
