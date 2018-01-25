@@ -15,7 +15,7 @@ This programs estimates new velocity and acceleration values for a specified tim
 module Main (main) where
 
 import EngProb (prompt)
-import Text.Printf (printf)
+import EngProb.Prelude
 
 main :: IO ()
 main = do

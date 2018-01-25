@@ -12,10 +12,9 @@ This program generates and prints ten random integers between user-specified lim
 
 module Main (main) where
 
-import           Control.Monad (forM_)
 import           EngProb (prompt)
+import           EngProb.Prelude
 import           System.Random (StdGen, mkStdGen, randomRs)
-import           Text.Printf (printf)
 
 main :: IO ()
 main = do

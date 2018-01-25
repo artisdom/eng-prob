@@ -12,10 +12,8 @@ This program computes a linear model for a set of altitude and ozone mixing rati
 
 module Main (main) where
 
-import           Control.Monad (forM_)
-import           EngProb
-                    ( prompt
-                    )
+import           EngProb (prompt)
+import           EngProb.Prelude
 import           Graphics.Rendering.Chart.Backend.Cairo (toFile)
 import           Graphics.Rendering.Chart.Easy
                     ( (.=)
@@ -24,7 +22,6 @@ import           Graphics.Rendering.Chart.Easy
                     , line
                     , plot
                     )
-import           Text.Printf (printf)
 
 -- |Evaluates the @sinc@ function
 sinc :: Double -> Double

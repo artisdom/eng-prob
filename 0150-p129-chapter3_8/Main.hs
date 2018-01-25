@@ -12,8 +12,8 @@ This program generates a file of height and velocity values for a weather balloo
 
 module Main (main) where
 
-import           Control.Monad (forM_)
 import           EngProb (prompt)
+import           EngProb.Prelude
 import           Graphics.Rendering.Chart.Backend.Cairo (toFile)
 import           Graphics.Rendering.Chart.Easy
                     ( (.=)
@@ -28,7 +28,6 @@ import           System.IO
                     , hPutStrLn
                     , withFile
                     )
-import           Text.Printf (printf)
 
 type DataPoint = (Double, Double, Double)
 

@@ -14,10 +14,8 @@ This program prints a table of height and velocity values for a weather balloon.
 
 module Main (main) where
 
-import Control.Monad (forM_)
-import Data.List (foldl')
 import EngProb (prompt)
-import Text.Printf (printf)
+import EngProb.Prelude
 
 main :: IO ()
 main = do

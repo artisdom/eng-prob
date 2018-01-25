@@ -13,8 +13,8 @@ This program estimates the reliability of a series and a parallel configuration 
 module Main (main) where
 
 import           EngProb (prompt)
+import           EngProb.Prelude
 import           System.Random (StdGen, mkStdGen, randomRs)
-import           Text.Printf (printf)
 
 repeatN :: Int -> (a -> a) -> a -> a
 repeatN n f x = foldr (\_ x' -> f x') x [1..n]
