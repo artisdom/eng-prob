@@ -12,9 +12,7 @@ This program generates a summary report from a data file that has a trailer reco
 
 module Main (main) where
 
-import           EngProb (expandRange, readDouble)
-import           EngProb.Prelude
-import           Paths_eng_prob (getDataFileName)
+import EngProb
 
 main :: IO ()
 main = do

@@ -12,7 +12,7 @@ This program prints a degree-to-radian table using @map@ and @forM_@.
 
 module Main (main) where
 
-import EngProb.Prelude
+import EngProb
 
 main :: IO ()
 main = do

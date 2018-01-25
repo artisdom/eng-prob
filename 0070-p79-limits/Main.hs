@@ -13,7 +13,7 @@ This program prints the system limitations.
 module Main (main) where
 
 import Data.Int (Int8, Int16, Int32, Int64)
-import EngProb.Prelude
+import EngProb
 
 main :: IO ()
 main = do

@@ -14,9 +14,7 @@ module Main (main) where
 
 import           Data.Vector.Unboxed (Vector)
 import qualified Data.Vector.Unboxed as Vector
-import           EngProb (readDouble)
-import           EngProb.Prelude
-import           Paths_eng_prob
+import           EngProb
 
 main :: IO ()
 main = do

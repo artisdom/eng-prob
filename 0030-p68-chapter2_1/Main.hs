@@ -12,8 +12,7 @@ This program uses linear interpolation to compute the coefficient of lift for an
 
 module Main (main) where
 
-import EngProb (prompt)
-import EngProb.Prelude
+import EngProb
 
 main :: IO ()
 main = do

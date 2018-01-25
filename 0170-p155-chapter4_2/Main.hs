@@ -12,8 +12,7 @@ This program computes a linear model for a set of altitude and ozone mixing rati
 
 module Main (main) where
 
-import           EngProb (prompt)
-import           EngProb.Prelude
+import           EngProb
 import           Graphics.Rendering.Chart.Backend.Cairo (toFile)
 import           Graphics.Rendering.Chart.Easy
                     ( (.=)

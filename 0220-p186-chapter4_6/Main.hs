@@ -12,8 +12,7 @@ This program estimates the real roots of a polynomial function using incremental
 
 module Main (main) where
 
-import           EngProb (prompt)
-import           EngProb.Prelude
+import EngProb
 
 type Interval = (Double, Double)
 type Func = Double -> Double

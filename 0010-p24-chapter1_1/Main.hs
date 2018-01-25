@@ -12,7 +12,7 @@ This program computes the distance between two points.
 
 module Main (main) where
 
-import EngProb.Prelude
+import EngProb
 
 main :: IO ()
 main = do

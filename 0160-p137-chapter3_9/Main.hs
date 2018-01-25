@@ -12,9 +12,7 @@ This program computes a linear model for a set of altitude and ozone mixing rati
 
 module Main (main) where
 
-import           EngProb (expandRange, readDouble)
-import           EngProb.Prelude
-import           Paths_eng_prob (getDataFileName)
+import EngProb
 
 main :: IO ()
 main = do

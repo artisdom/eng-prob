@@ -12,8 +12,7 @@ This program generates a file of height and velocity values for a weather balloo
 
 module Main (main) where
 
-import           EngProb (prompt)
-import           EngProb.Prelude
+import           EngProb
 import           Graphics.Rendering.Chart.Backend.Cairo (toFile)
 import           Graphics.Rendering.Chart.Easy
                     ( (.=)

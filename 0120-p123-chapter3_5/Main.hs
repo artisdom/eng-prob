@@ -12,9 +12,7 @@ This program generates a summary report from a data file that has the number of 
 
 module Main (main) where
 
-import           EngProb (expandRange, readDouble, readInt)
-import           EngProb.Prelude
-import           Paths_eng_prob (getDataFileName)
+import EngProb
 
 main :: IO ()
 main = do

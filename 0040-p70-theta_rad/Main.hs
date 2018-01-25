@@ -12,8 +12,7 @@ This program converts degrees to radians and evaluates the @sin@ function.
 
 module Main (main) where
 
-import EngProb (prompt)
-import EngProb.Prelude
+import EngProb
 
 main :: IO ()
 main = do

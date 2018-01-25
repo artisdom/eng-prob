@@ -12,7 +12,7 @@ Physical constants: Haskell has a preprocessor but values (which are always immu
 
 module Main (main) where
 
-import EngProb.Prelude
+import EngProb
 
 -- Speed of light, c
 c :: Double

@@ -12,8 +12,7 @@ This program estimates the reliability of a series and a parallel configuration 
 
 module Main (main) where
 
-import           EngProb (prompt)
-import           EngProb.Prelude
+import           EngProb
 import           System.Random (StdGen, mkStdGen, randomRs)
 
 repeatN :: Int -> (a -> a) -> a -> a

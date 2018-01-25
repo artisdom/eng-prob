@@ -12,7 +12,7 @@ This program demonstrates reusable degree/radian conversion programs.
 
 module Main (main) where
 
-import EngProb.Prelude
+import EngProb
 
 radiansToDegrees :: (Floating a, Fractional a) => a -> a
 --radiansToDegrees aRad = aRad * 180 / pi

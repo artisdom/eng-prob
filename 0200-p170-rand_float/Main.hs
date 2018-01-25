@@ -12,8 +12,7 @@ This program generates and prints ten random floating-point numbers between user
 
 module Main (main) where
 
-import           EngProb (prompt)
-import           EngProb.Prelude
+import           EngProb
 import           System.Random (StdGen, mkStdGen, randomRs)
 
 main :: IO ()

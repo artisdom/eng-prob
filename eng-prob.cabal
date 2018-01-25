@@ -26,6 +26,7 @@ library
   exposed-modules:                          EngProb
                                           , EngProb.Prelude
                                           , EngProb.Util
+                                          , Paths_eng_prob
 
 test-suite eng-prob-test
   type:                                     exitcode-stdio-1.0

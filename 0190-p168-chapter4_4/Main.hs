@@ -12,8 +12,7 @@ This program generates and prints ten random integers between user-specified lim
 
 module Main (main) where
 
-import           EngProb (prompt)
-import           EngProb.Prelude
+import           EngProb
 import           System.Random (StdGen, mkStdGen, randomRs)
 
 main :: IO ()

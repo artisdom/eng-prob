@@ -14,8 +14,7 @@ This program prints a table of height and velocity values for a weather balloon.
 
 module Main (main) where
 
-import EngProb (prompt)
-import EngProb.Prelude
+import EngProb
 
 main :: IO ()
 main = do

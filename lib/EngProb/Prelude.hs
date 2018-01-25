@@ -15,6 +15,7 @@ module EngProb.Prelude
     , exitSuccess
     , foldl'
     , forM_
+    , getDataFileName
     , printf
     , unfoldr
     , void
@@ -22,5 +23,6 @@ module EngProb.Prelude
 
 import           Control.Monad
 import           Data.List
+import           Paths_eng_prob
 import           System.Exit
 import           Text.Printf

@@ -12,8 +12,7 @@ This program generates and prints ten random integers between 1 and RAND_MAX.
 
 module Main (main) where
 
-import           EngProb (prompt)
-import           EngProb.Prelude
+import           EngProb
 import           System.Random (mkStdGen, randomRs)
 
 randMax :: Int
