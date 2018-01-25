@@ -25,10 +25,9 @@ main = do
 
     -- Read data and compute summary information
     let (_, motions) =
-                unzip (
-                takeWhile
+                unzip $ takeWhile
                     (\tm -> tm /= (-99 :: Double, -99 :: Double)) $
-                    map (\l -> let t : m : _ = words l in (read t, read m)) (lines stream))
+                    map (\l -> let t : m : _ = words l in (read t, read m)) (lines stream)
         (n, sumMotion, minMotion, maxMotion) =
             foldl'
                 (\(i, sm, mn, mx) m ->

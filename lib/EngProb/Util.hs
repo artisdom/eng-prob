@@ -13,6 +13,8 @@ This module defines assorted utility functions.
 module EngProb.Util
     ( expandRange
     , prompt
+    , readDouble
+    , readInt
     ) where
 
 -- |Display a prompt and strictly read a value from terminal
@@ -34,3 +36,11 @@ expandRange ::
 expandRange i mn mx x
     | i == 0 = (x, x)
     | otherwise = (if x < mn then x else mn, if x > mx then x else mx)
+
+-- |@read@ specializes to @Double@
+readDouble :: String -> Double
+readDouble = read
+
+-- |@read@ specializes to @Int@
+readInt :: String -> Int
+readInt = read
