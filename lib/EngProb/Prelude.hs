@@ -16,6 +16,7 @@ module EngProb.Prelude
     , foldl'
     , forM_
     , printf
+    , unfoldr
     , void
     ) where
 
