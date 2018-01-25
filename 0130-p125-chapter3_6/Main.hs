@@ -12,7 +12,7 @@ This program generates a summary report from a data file that has a trailer reco
 
 module Main (main) where
 
-import           EngProb (expandRange)
+import           EngProb (expandRange, readDouble)
 import           EngProb.Prelude
 import           Paths_eng_prob (getDataFileName)
 import           Text.Printf (printf)
@@ -27,7 +27,7 @@ main = do
     let (_, motions) =
                 unzip $ takeWhile
                     (\tm -> tm /= (-99 :: Double, -99 :: Double)) $
-                    map (\l -> let t : m : _ = words l in (read t, read m)) (lines stream)
+                    map (\l -> let t : m : _ = words l in (readDouble t, readDouble m)) (lines stream)
         (n, sumMotion, minMotion, maxMotion) =
             foldl'
                 (\(i, sm, mn, mx) m ->

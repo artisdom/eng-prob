@@ -12,7 +12,7 @@ This program computes a linear model for a set of altitude and ozone mixing rati
 
 module Main (main) where
 
-import           EngProb (expandRange)
+import           EngProb (expandRange, readDouble)
 import           EngProb.Prelude
 import           Paths_eng_prob (getDataFileName)
 import           Text.Printf (printf)
@@ -27,7 +27,7 @@ main = do
             unfoldr
                 (\ls -> case ls of
                             l : ls' -> case words l of
-                                            sx : sy : _ -> Just ((read sx, read sy), ls')
+                                            sx : sy : _ -> Just ((readDouble sx, readDouble sy), ls')
                                             _ -> Nothing
                             _ -> Nothing)
                 (lines stream)

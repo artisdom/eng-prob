@@ -12,7 +12,7 @@ This program generates a summary report from a data file that has the number of 
 
 module Main (main) where
 
-import           EngProb (expandRange)
+import           EngProb (expandRange, readDouble, readInt)
 import           EngProb.Prelude
 import           Paths_eng_prob (getDataFileName)
 import           Text.Printf (printf)
@@ -24,10 +24,10 @@ main = do
     stream <- readFile fileName
 
     let h : ls = lines stream
-        n = read h
+        n = readInt h
 
         -- Read data and compute summary information
-        motions = map (\l -> let _ : m : _ = words l in read m) (take n ls)
+        motions = map (\l -> let _ : m : _ = words l in readDouble m) (take n ls)
         (_, sumMotion, minMotion, maxMotion) =
             foldl'
                 (\(i, sm, mn, mx) m ->

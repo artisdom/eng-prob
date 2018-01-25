@@ -12,7 +12,7 @@ This program generates a summary report from a data file that does not have a he
 
 module Main (main) where
 
-import           EngProb (expandRange)
+import           EngProb (expandRange, readDouble)
 import           EngProb.Prelude
 import           Paths_eng_prob (getDataFileName)
 import           Text.Printf (printf)
@@ -28,7 +28,7 @@ main = do
             unfoldr
                 (\ls -> case ls of
                             l : ls' -> case words l of
-                                            _ : m : _ -> Just (read m, ls')
+                                            _ : m : _ -> Just (readDouble m, ls')
                                             _ -> Nothing
                             _ -> Nothing)
                 (lines stream)
