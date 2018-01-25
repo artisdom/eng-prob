@@ -11,11 +11,15 @@ This module imports and re-exports commonly used functions.
 -}
 
 module EngProb.Prelude
-    ( foldl'
+    ( exitFailure
+    , exitSuccess
+    , foldl'
     , forM_
     , printf
+    , void
     ) where
 
 import           Control.Monad
 import           Data.List
+import           System.Exit
 import           Text.Printf

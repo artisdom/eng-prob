@@ -12,19 +12,10 @@ This program generates a summary report from a data file that has the number of 
 
 module Main (main) where
 
-import           EngProb
-                    ( Parser
-                    , double
-                    , expandRange
-                    , processWithLeadingCountM
-                    , tokenize
-                    )
+import           EngProb (expandRange)
+import           EngProb.Prelude
 import           Paths_eng_prob (getDataFileName)
 import           Text.Printf (printf)
-
--- A parser for (time, motion) pairs
-timeMotion :: Parser (Double, Double)
-timeMotion = (,) <$> double <*> double
 
 main :: IO ()
 main = do
@@ -32,19 +23,18 @@ main = do
     fileName <- getDataFileName "sensor1.dat"
     stream <- readFile fileName
 
-    -- Read data and compute summary information
-    result <-
-        processWithLeadingCountM timeMotion
-            (tokenize stream)
-            (0, 0.0, 0.0, 0.0) $ \(i, sm, mn, mx) (t, m) -> do
-                putStrLn $ printf "%.1f %.1f" t m
-                let (mn', mx') = expandRange i mn mx m
-                return (i + 1, sm + m, mn', mx')
+    let h : ls = lines stream
+        n = read h
 
-    let (n, sumMotion, minMotion, maxMotion) =
-            case result of
-                Left s -> error $ "Processing failed: " ++ s
-                Right (x, _) -> x
+        -- Read data and compute summary information
+        motions = map (\l -> let _ : m : _ = words l in read m) (take n ls)
+        (_, sumMotion, minMotion, maxMotion) =
+            foldl'
+                (\(i, sm, mn, mx) m ->
+                    let (mn', mx') = expandRange i mn mx m
+                    in (i + 1, sm + m, mn', mx'))
+                (0, 0.0, 0.0, 0.0)
+                motions
 
     -- Show summary information
     putStrLn $ printf "Number of sensor readings: %d" n
