@@ -18,9 +18,9 @@ main :: IO ()
 main = do
     -- Open file for lazy input
     fileName <- getDataFileName "sensor1.dat"
-    stream <- readFile fileName
+    content <- readFile fileName
 
-    let h : ls = lines stream
+    let h : ls = lines content
         n = readInt h
 
         -- Read data and compute summary information

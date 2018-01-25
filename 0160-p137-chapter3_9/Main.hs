@@ -18,7 +18,7 @@ main :: IO ()
 main = do
     -- Open and read file
     fileName <- getDataFileName "zone1.dat"
-    stream <- readFile fileName
+    content <- readFile fileName
 
     let xys =
             unfoldr
@@ -27,7 +27,7 @@ main = do
                                             sx : sy : _ -> Just ((readDouble sx, readDouble sy), ls')
                                             _ -> Nothing
                             _ -> Nothing)
-                (lines stream)
+                (lines content)
 
         -- Accumulate information
         (n, minHeight, maxHeight, sumx, sumy, sumx2, sumxy) =

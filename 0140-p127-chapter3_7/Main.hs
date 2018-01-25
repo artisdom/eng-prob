@@ -18,7 +18,7 @@ main :: IO ()
 main = do
     -- Open file for lazy input
     fileName <- getDataFileName "sensor3.dat"
-    stream <- readFile fileName
+    content <- readFile fileName
 
     -- Read data and compute summary information
     let motions =
@@ -28,7 +28,7 @@ main = do
                                             _ : m : _ -> Just (readDouble m, ls')
                                             _ -> Nothing
                             _ -> Nothing)
-                (lines stream)
+                (lines content)
         (n, sumMotion, minMotion, maxMotion) =
             foldl'
                 (\(i, sm, mn, mx) m ->

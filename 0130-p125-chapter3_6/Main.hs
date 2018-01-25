@@ -18,13 +18,13 @@ main :: IO ()
 main = do
     -- Open file for lazy input
     fileName <- getDataFileName "sensor2.dat"
-    stream <- readFile fileName
+    content <- readFile fileName
 
     -- Read data and compute summary information
     let (_, motions) =
                 unzip $ takeWhile
                     (\tm -> tm /= (-99 :: Double, -99 :: Double)) $
-                    map (\l -> let t : m : _ = words l in (readDouble t, readDouble m)) (lines stream)
+                    map (\l -> let t : m : _ = words l in (readDouble t, readDouble m)) (lines content)
         (n, sumMotion, minMotion, maxMotion) =
             foldl'
                 (\(i, sm, mn, mx) m ->

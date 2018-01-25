@@ -23,7 +23,7 @@ main = do
     print g
 
     fileName <- getDataFileName "sensor3.dat"
-    stream <- readFile fileName
+    content <- readFile fileName
 
     let (ts, ms) =
             unzip $ unfoldr
@@ -32,7 +32,7 @@ main = do
                                             st : sm : _ -> Just ((readDouble st, readDouble sm), ls')
                                             _ -> Nothing
                             _ -> Nothing)
-                (lines stream)
+                (lines content)
         times = Vector.fromList ts
         motions = Vector.fromList ms
 
