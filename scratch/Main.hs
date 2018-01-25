@@ -1,7 +1,5 @@
 module Main (main) where
 
-import           Control.Monad.State
-import           Data.Vector.Unboxed (Vector)
 import qualified Data.Vector.Unboxed as Vector
 import           EngProb
 import           Paths_eng_prob (getDataFileName)
