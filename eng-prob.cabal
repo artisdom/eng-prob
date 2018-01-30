@@ -311,3 +311,12 @@ executable 0300-p225-chapter5_3
   build-depends:                            base >= 4.7 && < 5
                                           , eng-prob
                                           , vector
+
+executable 0310-p229-sorts
+  default-language:                         Haskell2010
+  hs-source-dirs:                           0310-p229-sorts
+  main-is:                                  Main.hs
+  ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
+  build-depends:                            base >= 4.7 && < 5
+                                          , eng-prob
+                                          , vector

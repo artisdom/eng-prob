@@ -13,6 +13,7 @@ This module imports and re-exports commonly used functions.
 module EngProb.Prelude
     ( exitFailure
     , exitSuccess
+    , foldM
     , foldl'
     , forM_
     , fromJust
