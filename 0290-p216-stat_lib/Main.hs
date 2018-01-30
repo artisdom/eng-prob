@@ -15,7 +15,7 @@ module Main (main) where
 import qualified Data.Vector.Algorithms.Intro as Vector (sort)
 import           Data.Vector.Unboxed ((!), Unbox, Vector)
 import qualified Data.Vector.Unboxed as Vector
-import           EngProb
+import           EngProb hiding (mean, median, sorted)
 
 -- |Or just use Vector.maximum
 myMaximum :: (Ord a, Unbox a) => Vector a -> Maybe a

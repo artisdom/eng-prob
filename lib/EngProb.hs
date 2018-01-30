@@ -12,8 +12,10 @@ This module supplies support functions and types for Engineering Problem Solving
 
 module EngProb
     ( module EngProb.Prelude
+    , module EngProb.StatLib
     , module EngProb.Util
     ) where
 
 import EngProb.Prelude
+import EngProb.StatLib
 import EngProb.Util
