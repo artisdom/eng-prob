@@ -19,6 +19,7 @@ module EngProb.Prelude
     , printf
     , unfoldr
     , void
+    , when
     ) where
 
 import           Control.Monad
