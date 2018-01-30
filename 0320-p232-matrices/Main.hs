@@ -28,4 +28,4 @@ main = do
     content <- readFile fileName
 
     -- Print out matrix
-    print $ Matrix.fromList nRows nCols (words content)
+    print $ Matrix.fromList nRows nCols (map readDouble $ words content)
