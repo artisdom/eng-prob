@@ -18,12 +18,14 @@ module EngProb.Prelude
     , fromJust
     , getDataFileName
     , printf
+    , runST
     , unfoldr
     , void
     , when
     ) where
 
 import           Control.Monad
+import           Control.Monad.ST
 import           Data.List
 import           Data.Maybe
 import           Paths_eng_prob
