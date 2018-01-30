@@ -21,8 +21,9 @@ module EngProb.StatLib
     ) where
 
 import qualified Data.Vector.Algorithms.Intro as Vector (sort)
-import           Data.Vector.Unboxed ((!), Unbox, Vector)
-import qualified Data.Vector.Unboxed as Vector
+import           Data.Vector.Unboxed (Unbox)
+import           Data.Vector.Generic ((!), Vector)
+import qualified Data.Vector.Generic as Vector
                     ( length
                     , map
                     , null
@@ -32,18 +33,18 @@ import qualified Data.Vector.Unboxed as Vector
                     )
 import           EngProb.Prelude
 
-mean :: (Fractional a, Unbox a) => Vector a -> Maybe a
+mean :: (Fractional a, Unbox a, Vector v a) => v a -> Maybe a
 mean xs
     | Vector.null xs = Nothing
     | otherwise = Just $ Vector.sum xs / fromIntegral (Vector.length xs)
 
-sorted :: (Ord a, Unbox a) => Vector a -> Vector a
+sorted :: (Ord a, Unbox a, Vector v a) => v a -> v a
 sorted xs = runST $ do
     mxs <- Vector.thaw xs
     Vector.sort mxs
     Vector.unsafeFreeze mxs
 
-median :: (Fractional a, Ord a, Unbox a) => Vector a -> Maybe a
+median :: (Fractional a, Ord a, Unbox a, Vector v a) => v a -> Maybe a
 median xs
     | Vector.null xs = Nothing
     | otherwise =
@@ -55,7 +56,7 @@ median xs
                 then (xs' ! (k - 1) + xs' ! k) / 2
                 else xs' ! k
 
-sampleVariance :: (Floating a, Unbox a) => Vector a -> Maybe a
+sampleVariance :: (Floating a, Unbox a, Vector v a) => v a -> Maybe a
 sampleVariance xs
     | Vector.null xs = Nothing
     | otherwise = do
@@ -63,7 +64,7 @@ sampleVariance xs
         let temp = Vector.map (\x -> (x - mu) ** 2) xs
         return $ (Vector.sum temp) / (fromIntegral $ Vector.length xs - 1)
 
-standardDeviation :: (Floating a, Unbox a) => Vector a -> Maybe a
+standardDeviation :: (Floating a, Unbox a, Vector v a) => v a -> Maybe a
 standardDeviation xs = do
     var <- sampleVariance xs
     return $ sqrt var
