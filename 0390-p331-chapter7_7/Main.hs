@@ -13,7 +13,6 @@ This program computes the molecular weight of an amino acid from its chemical fo
 module Main (main) where
 
 import           Data.Char (isDigit, toUpper)
-import           Data.Map (Map)
 import qualified Data.Map as Map (fromList, lookup)
 import           EngProb (promptString, readInt, unfoldr)
 import           Text.Printf (printf)
@@ -26,17 +25,16 @@ takeWhile' f s = go s []
             | otherwise = (acc, ys)
         go _ acc = (acc, [])
 
-atomicWeights :: Map Char Double
-atomicWeights = Map.fromList
-    [ ('H', 1.00794)
-    , ('C', 12.011)
-    , ('N', 14.00674)
-    , ('O', 15.9994)
-    , ('S', 32.066)
-    ]
-
-atomicWeight :: Char -> Map Char Double -> Maybe Double
-atomicWeight = Map.lookup
+atomicWeight :: Char -> Maybe Double
+atomicWeight = (flip Map.lookup) atomicWeights
+    where
+        atomicWeights = Map.fromList
+            [ ('H', 1.00794)
+            , ('C', 12.011)
+            , ('N', 14.00674)
+            , ('O', 15.9994)
+            , ('S', 32.066)
+            ]
 
 main :: IO ()
 main = do
@@ -44,7 +42,7 @@ main = do
     let total = sum $ unfoldr (\s ->
             case s of
                 h : t0 ->
-                    let Just weight = atomicWeight (toUpper h) atomicWeights
+                    let Just weight = atomicWeight (toUpper h)
                         (c, t1) = takeWhile' isDigit t0
                         count = case c of [] -> 1; _ -> readInt c
                     in Just (weight * fromIntegral count, t1)
