@@ -53,7 +53,6 @@ main = do
     shortWindow <- prompt "Enter number of points for short window:\n"
     longWindow <- prompt "Enter number of points for long window:\n"
 
-    print sensor
     let ks = [longWindow - 1 ..npts - 1]
     let shortPowers = map (powerW sensor shortWindow) ks
         longPowers = map (powerW sensor longWindow) ks
