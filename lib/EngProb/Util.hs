@@ -13,6 +13,7 @@ This module defines assorted utility functions.
 module EngProb.Util
     ( expandRange
     , prompt
+    , promptString
     , readDouble
     , readInt
     ) where
@@ -25,6 +26,14 @@ prompt s = do
     putStr s
     line <- getLine
     return $! read line -- Use '$!' to force evaluation read expression
+
+-- |Display a prompt and read a string from terminal
+promptString ::
+    String  -- ^ Prompt text
+    -> IO String -- ^ Action
+promptString s = do
+    putStr s
+    getLine
 
 -- |Expand minimum/maximum range
 expandRange ::

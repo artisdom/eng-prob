@@ -376,3 +376,12 @@ executable 0380-p298-chapter6_4
                                           , base >= 4.7 && < 5
                                           , eng-prob
                                           , transformers
+
+executable 0390-p331-chapter7_7
+  default-language:                         Haskell2010
+  hs-source-dirs:                           0390-p331-chapter7_7
+  main-is:                                  Main.hs
+  ghc-options:                              -threaded -rtsopts -with-rtsopts=-N -W -Wall -fwarn-incomplete-patterns -fwarn-unused-imports
+  build-depends:                            base >= 4.7 && < 5
+                                          , containers
+                                          , eng-prob
